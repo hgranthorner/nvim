@@ -82,6 +82,7 @@ nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wh :split <CR>
 nnoremap <leader>wk :close<CR>
 nnoremap <leader>q  :q<CR>
+nnoremap <leader>Q  :q!<CR>
 nnoremap <leader>bb :buffers<CR>:b<Space>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bprevious<CR>
