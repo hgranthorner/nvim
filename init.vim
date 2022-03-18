@@ -88,6 +88,7 @@ nnoremap <leader>w= :wincmd =<CR>
 nnoremap <leader>wmh :wincmd _<CR>
 nnoremap <leader>wmw :wincmd \|<CR>
 nnoremap <leader>q  :q<CR>
+nnoremap <leader>wq :wq<CR>
 nnoremap <leader>Q  :q!<CR>
 nnoremap <leader>bb :buffers<CR>:b<Space>
 nnoremap <leader>bn :bn<CR>
@@ -96,6 +97,8 @@ nnoremap <leader>Pi :PlugInstall<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFocus<CR>
 nnoremap <leader>gc :Git<Space>
+nnoremap <leader>gp :Git pull<CR>
+nnoremap <leader>gP :Git push<CR>
 nnoremap <leader>gg :Git<CR>
 nnoremap <leader>sr :Rg<space>
 nnoremap <leader>sp :find<Space>
