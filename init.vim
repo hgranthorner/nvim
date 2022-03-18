@@ -40,18 +40,21 @@ set splitright
 
 call plug#begin()
 
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive', { 'on': 'Git' }
 Plug 'LnL7/vim-nix'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'ray-x/go.nvim', { 'for': 'go' }
 Plug 'Olical/conjure', { 'for': 'clojure' }
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 Plug 'jremmen/vim-ripgrep', { 'on': 'Rg' }
 
 call plug#end()
+
+lua require ('config')
 
 set termguicolors
 set background=dark " or light if you want light mode
@@ -81,6 +84,9 @@ nnoremap <leader>ft :setl filetype?<CR>
 nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wh :split <CR>
 nnoremap <leader>wk :close<CR>
+nnoremap <leader>w= :wincmd =<CR>
+nnoremap <leader>wmh :wincmd _<CR>
+nnoremap <leader>wmw :wincmd \|<CR>
 nnoremap <leader>q  :q<CR>
 nnoremap <leader>Q  :q!<CR>
 nnoremap <leader>bb :buffers<CR>:b<Space>
