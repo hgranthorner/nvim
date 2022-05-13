@@ -1,3 +1,18 @@
+call plug#begin()
+
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'jremmen/vim-ripgrep', { 'on': 'Rg' }
+Plug 'tpope/vim-fugitive',  { 'on': 'Git' }
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'mattn/emmet-vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'Olical/conjure'
+
+call plug#end()
+
 " Turn on line numbers
 set number
 set relativenumber
@@ -17,7 +32,13 @@ filetype plugin indent on " Filetype auto-detection
 syntax on " Syntax highlighting
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,typescriptreact EmmetInstall
 
 " Fuzzy finding
 set path+=**
@@ -64,18 +85,6 @@ set autoread
 " Move swp file location
 :set directory=$HOME/.vim/swapfiles/
 
-call plug#begin()
-
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'jremmen/vim-ripgrep', { 'on': 'Rg' }
-Plug 'tpope/vim-fugitive',  { 'on': 'Git' }
-Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'Olical/conjure'
-
-call plug#end()
 
 let g:coc_global_extensions = [
       \ 'coc-tsserver'
@@ -122,7 +131,7 @@ nnoremap <leader>gp :Git pull<CR>
 nnoremap <leader>gP :Git push<CR>
 nnoremap <leader>gg :Git<CR>
 nnoremap <leader>sr :Rg<space>
-nnoremap <leader>pF :Files<CR>
+nnoremap <leader>pf :Files<CR>
 
 nnoremap <leader><space> :GFiles<CR>
 
