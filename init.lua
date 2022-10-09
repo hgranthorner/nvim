@@ -39,6 +39,7 @@ require('packer').startup(function(use)
   }
 
   use "TimUntersberger/neogit"
+  use "tpope/vim-fugitive"
 end)
 
 vim.cmd("colorscheme nordfox")
@@ -51,9 +52,9 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Tab goodness
-vim.opt.tabstop=2
-vim.opt.shiftwidth=2
-vim.opt.softtabstop=2
+vim.opt.tabstop     = 2
+vim.opt.shiftwidth  = 2
+vim.opt.softtabstop = 2
 vim.opt.expandtab   = true -- use spaces instead of tabs.
 vim.opt.smarttab    = true -- let's tab key insert 'tab stops', and bksp deletes tabs.
 vim.opt.shiftround  = true -- tab / shifting moves to closest tabstop.
@@ -103,11 +104,15 @@ key('n', '<leader><space>', tele.find_files)
 key('n', '<leader>fp', tele.git_files)
 key('n', '<leader>fg', tele.live_grep)
 key('n', '<leader>q', ':q<CR>')
+key('n', 'gu', tele.lsp_references)
+key('n', '<leader>cp', tele.diagnostics)
 
 -- Buffers
 key('n', '<leader>bb', tele.buffers)
 key('n', '<leader>bn', ':bn<CR>')
 key('n', '<leader>bp', ':bp<CR>')
+key('n', '<leader>bk', ':bd<CR>')
+key('n', '<leader>bd', ':bd<CR>')
 
 -- Packer
 key('n', '<leader>Ps', ':PackerSync<CR>')
@@ -119,6 +124,9 @@ key('n', '<leader>nt', ':Neotree<CR>')
 -- Lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+-- Terminal
+key('t', '<Esc>', '<C-\\><C-n>')
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -132,10 +140,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<leader>hk', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>ce', function() vim.diagnostic.open_float({scope="line"}) end, bufopts)
+  -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
@@ -184,7 +193,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- Neogit
-local neogit = require('neogit')
-neogit.setup {}
-key('n', '<leader>gg', ':Neogit<CR>')
+-- Fugitive
+key('n', '<leader>gg', ':Git<CR>')
+key('n', '<leader>gc', ':Git<Space>')
