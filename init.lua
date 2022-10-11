@@ -38,8 +38,9 @@ require('packer').startup(function(use)
     }
   }
 
-  use "TimUntersberger/neogit"
   use "tpope/vim-fugitive"
+  use "mbbill/undotree"
+  use "jose-elias-alvarez/null-ls.nvim"
 end)
 
 vim.cmd("colorscheme nordfox")
@@ -163,6 +164,12 @@ lsp['tsserver'].setup{
   capabilities = capabilities
 }
 
+require('null-ls').setup({
+  sources = {
+    require('null-ls').builtins.diagnostics.credo
+  }
+})
+
 -- Autocomplete
 local cmp = require'cmp'
 
@@ -200,3 +207,6 @@ require'nvim-treesitter.configs'.setup {
 -- Fugitive
 key('n', '<leader>gg', ':Git<CR>')
 key('n', '<leader>gc', ':Git<Space>')
+
+-- Undotree
+key('n', '<leader>ut', ':UndotreeToggle<CR>')
