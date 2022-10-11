@@ -156,7 +156,11 @@ lsp['rust_analyzer'].setup{
 lsp['elixirls'].setup{
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = {"elixir-ls"}
+  cmd = {"language_server.sh"}
+}
+lsp['tsserver'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 -- Autocomplete
@@ -183,7 +187,7 @@ cmp.setup({
 
 -- Treesitter highlighting
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
+  ensure_installed = {"elixir", "heex", "eex", "javascript"}, -- only install parsers for elixir and heex
   -- ensure_installed = "all", -- install parsers for all supported languages
   sync_install = false,
   ignore_install = { },
