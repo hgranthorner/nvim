@@ -120,7 +120,7 @@ key('n', '<leader>Ps', ':PackerSync<CR>')
 key('n', '<leader>Pc', ':PackerCompile<CR>')
 
 -- Neotree
-key('n', '<leader>nt', ':Neotree<CR>')
+key('n', '<leader>nt', ':Neotree toggle<CR>')
 
 -- Lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
