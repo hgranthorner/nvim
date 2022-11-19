@@ -163,6 +163,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/grant/.local/share/nvim/site/pack/packer/start/vim-vsnip",
     url = "https://github.com/hrsh7th/vim-vsnip"
+  },
+  vlime = {
+    loaded = true,
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/vlime",
+    url = "https://github.com/vlime/vlime"
   }
 }
 
