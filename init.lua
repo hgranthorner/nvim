@@ -42,7 +42,6 @@ require('packer').startup(function(use)
   use "tpope/vim-surround"
   use "mbbill/undotree"
   use "jose-elias-alvarez/null-ls.nvim"
-  use "vlime/vlime"
 end)
 vim.cmd("colorscheme nordfox")
 
