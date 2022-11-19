@@ -12,6 +12,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+idrislsp = {}
 require('packer').startup(function(use)
   vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
@@ -33,16 +34,22 @@ require('packer').startup(function(use)
     branch = "v2.x",
     requires = { 
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     }
   }
 
   use "tpope/vim-fugitive"
+  use "tpope/vim-surround"
   use "mbbill/undotree"
   use "jose-elias-alvarez/null-ls.nvim"
-end)
 
+  use {"~/repos/idris2-nvim",
+       ft = "idris2",
+       config = function()
+         require('idris2').setup({ on_attach = idrislsp.onattach, capabilities = idrislsp.capabilities }) 
+       end}
+end)
 vim.cmd("colorscheme nordfox")
 
 -- Clipboard
@@ -124,7 +131,7 @@ key('n', '<leader>nt', ':Neotree toggle<CR>')
 
 -- Lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Terminal
 key('t', '<Esc>', '<C-\\><C-n>')
@@ -149,6 +156,8 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+idrislsp["onattach"] = on_attach
+idrislsp["capabilities"] = capabilities
 
 local lsp = require('lspconfig')
 lsp['rust_analyzer'].setup{
@@ -197,8 +206,7 @@ cmp.setup({
 
 -- Treesitter highlighting
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "heex", "eex", "javascript"}, -- only install parsers for elixir and heex
-  -- ensure_installed = "all", -- install parsers for all supported languages
+  ensure_installed = {"elixir", "heex", "eex", "javascript"},
   sync_install = false,
   ignore_install = { },
   highlight = {

@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/grant/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,92 +76,123 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   CycleColor = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/CycleColor",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/CycleColor",
     url = "https://github.com/vim-scripts/CycleColor"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-vsnip"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
+  },
+  ["idris2-nvim"] = {
+    config = { "\27LJ\2\ns\0\0\4\0\a\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0006\3\3\0009\3\4\3=\3\4\0026\3\3\0009\3\6\3=\3\6\2B\0\2\1K\0\1\0\17capabilities\1\0\0\14on_attach\ridrislsp\nsetup\vidris2\frequire\0" },
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim",
+    url = "/home/grant/repos/idris2-nvim"
   },
   ["neo-tree.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
   ["nightfox.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
   },
   ["nui.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nui.nvim",
     url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
     url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   undotree = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/undotree",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
   ["vim-fugitive"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   },
   ["vim-vsnip"] = {
     loaded = true,
-    path = "/Users/grant/.local/share/nvim/site/pack/packer/start/vim-vsnip",
+    path = "/home/grant/.local/share/nvim/site/pack/packer/start/vim-vsnip",
     url = "https://github.com/hrsh7th/vim-vsnip"
   }
 }
 
 time([[Defining packer_plugins]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType idris2 ++once lua require("packer.load")({'idris2-nvim'}, { ft = "idris2" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
+vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]], true)
+vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]]
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]], false)
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]], true)
+vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]]
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]], false)
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]], true)
+vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]]
+time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
