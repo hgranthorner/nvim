@@ -123,12 +123,12 @@ key('n', '<leader>Pc', ':PackerCompile<CR>')
 -- Neotree
 key('n', '<leader>nt', ':Neotree toggle<CR>')
 
+-- Terminal
+key('t', '<Esc>', '<C-\\><C-n>')
+
 -- Lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Terminal
-key('t', '<Esc>', '<C-\\><C-n>')
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -162,6 +162,14 @@ lsp['elixirls'].setup{
   cmd = {"language_server.sh"}
 }
 lsp['tsserver'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+lsp['gopls'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+lsp['clangd'].setup{
   on_attach = on_attach,
   capabilities = capabilities
 }
