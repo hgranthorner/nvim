@@ -12,7 +12,6 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-idrislsp = {}
 require('packer').startup(function(use)
   vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
@@ -43,12 +42,6 @@ require('packer').startup(function(use)
   use "tpope/vim-surround"
   use "mbbill/undotree"
   use "jose-elias-alvarez/null-ls.nvim"
-
-  use {"~/repos/idris2-nvim",
-       ft = "idris2",
-       config = function()
-         require('idris2').setup({ on_attach = idrislsp.onattach, capabilities = idrislsp.capabilities }) 
-       end}
 end)
 vim.cmd("colorscheme nordfox")
 
@@ -156,8 +149,6 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
-idrislsp["onattach"] = on_attach
-idrislsp["capabilities"] = capabilities
 
 local lsp = require('lspconfig')
 lsp['rust_analyzer'].setup{

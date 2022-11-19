@@ -89,14 +89,6 @@ _G.packer_plugins = {
     path = "/home/grant/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
-  ["idris2-nvim"] = {
-    config = { "\27LJ\2\ns\0\0\4\0\a\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0006\3\3\0009\3\4\3=\3\4\0026\3\3\0009\3\6\3=\3\6\2B\0\2\1K\0\1\0\17capabilities\1\0\0\14on_attach\ridrislsp\nsetup\vidris2\frequire\0" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim",
-    url = "/home/grant/repos/idris2-nvim"
-  },
   ["neo-tree.nvim"] = {
     loaded = true,
     path = "/home/grant/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
@@ -175,24 +167,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Filetype lazy-loads
-time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType idris2 ++once lua require("packer.load")({'idris2-nvim'}, { ft = "idris2" }, _G.packer_plugins)]]
-time([[Defining lazy-load filetype autocommands]], false)
-vim.cmd("augroup END")
-vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]], true)
-vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]]
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/idris2.vim]], false)
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]], true)
-vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]]
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/ipkg.vim]], false)
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]], true)
-vim.cmd [[source /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]]
-time([[Sourcing ftdetect script at: /home/grant/.local/share/nvim/site/pack/packer/opt/idris2-nvim/ftdetect/lidris2.vim]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
