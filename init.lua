@@ -19,6 +19,7 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use "nvim-lua/plenary.nvim"
   use "nvim-telescope/telescope.nvim"
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
   use "neovim/nvim-lspconfig"
   use "hrsh7th/nvim-cmp"
   use "hrsh7th/cmp-nvim-lsp"
@@ -42,6 +43,7 @@ require('packer').startup(function(use)
   use "tpope/vim-surround"
   use "mbbill/undotree"
   use "jose-elias-alvarez/null-ls.nvim"
+  use "mattn/emmet-vim"
 end)
 vim.cmd("colorscheme nordfox")
 
@@ -100,10 +102,10 @@ key('n', '<leader>re', ':edit $MYVIMRC<CR>')
 -- Files
 local tele = require('telescope.builtin')
 key('n', '<leader>fs', ':w<CR>')
-key('n', '<leader>ff', tele.find_files)
+key('n', '<leader>ff', tele.git_files)
 key('n', '<leader><space>', tele.find_files)
 key('n', '<leader>fp', tele.git_files)
-key('n', '<leader>fg', tele.live_grep)
+key('n', '<leader>s', tele.live_grep)
 key('n', '<leader>q', ':q<CR>')
 key('n', 'gu', tele.lsp_references)
 key('n', '<leader>cp', tele.diagnostics)
@@ -172,6 +174,14 @@ lsp['clangd'].setup{
   on_attach = on_attach,
   capabilities = capabilities
 }
+lsp['svelte'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+lsp['csharp_ls'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
 
 require('null-ls').setup({
   sources = {
@@ -205,7 +215,9 @@ cmp.setup({
 
 -- Treesitter highlighting
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "heex", "eex", "javascript"},
+  ensure_installed = {"elixir", "heex", "eex",
+    "javascript", "svelte",
+    "c_sharp"},
   sync_install = false,
   ignore_install = { },
   highlight = {
