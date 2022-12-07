@@ -108,6 +108,7 @@ key('n', '<leader>fp', tele.git_files)
 key('n', '<leader>s', tele.live_grep)
 key('n', '<leader>q', ':q<CR>')
 key('n', 'gu', tele.lsp_references)
+key('n', 'gs', tele.lsp_document_symbols)
 key('n', '<leader>cp', tele.diagnostics)
 
 -- Buffers
@@ -167,18 +168,6 @@ lsp['tsserver'].setup{
   capabilities = capabilities
 }
 lsp['gopls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['clangd'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['svelte'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['csharp_ls'].setup{
   on_attach = on_attach,
   capabilities = capabilities
 }
