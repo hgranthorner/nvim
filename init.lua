@@ -1,9 +1,9 @@
 -- Packer
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[ packadd packer.nvim ]]
     return true
   end
@@ -19,15 +19,15 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use "nvim-lua/plenary.nvim"
   use "nvim-telescope/telescope.nvim"
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use "vim-scripts/CycleColor"
   use "EdenEast/nightfox.nvim"
-  use("nvim-treesitter/nvim-treesitter", {run = ':TSUpdate'})
+  use("nvim-treesitter/nvim-treesitter", { run = ':TSUpdate' })
 
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
@@ -43,21 +43,21 @@ require('packer').startup(function(use)
     'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
     }
   }
 end)
@@ -92,11 +92,11 @@ vim.opt.autoindent  = true -- Match indents on new lines.
 vim.opt.smartindent = true -- Intelligently dedent / indent new lines based on rules.
 
 -- Make search more sane
-vim.opt.ignorecase  = true -- case insensitive search
-vim.opt.smartcase   = true -- If there are uppercase letters, become case-sensitive.
-vim.opt.incsearch   = true -- live incremental searching
-vim.opt.showmatch   = true -- live match highlighting
-vim.opt.hlsearch    = false -- highlight matches
+vim.opt.ignorecase = true -- case insensitive search
+vim.opt.smartcase  = true -- If there are uppercase letters, become case-sensitive.
+vim.opt.incsearch  = true -- live incremental searching
+vim.opt.showmatch  = true -- live match highlighting
+vim.opt.hlsearch   = false -- highlight matches
 
 -- Let splitting make more sense
 vim.opt.splitbelow = true
@@ -123,7 +123,7 @@ key('n', '<leader>wl', '<C-w>l')
 key('n', '<leader>wd', ':close<CR>')
 
 -- Config management
-key('n', '<leader>rr', ':source $MYVIMRC<CR>', {desc = 'Refresh config'})
+key('n', '<leader>rr', ':source $MYVIMRC<CR>', { desc = 'Refresh config' })
 key('n', '<leader>re', ':edit $MYVIMRC<CR>')
 
 -- Files
@@ -161,6 +161,3 @@ key('t', '<Esc>', '<C-\\><C-n>')
 -- Primeagen move lines
 key('v', "J", ":m '>+1<CR>gv=gv")
 key('v', "K", ":m '<-2<CR>gv=gv")
-
-
-

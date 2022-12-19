@@ -13,12 +13,22 @@ lsp.ensure_installed({
   'pyright'
 })
 
-local cmp = require'cmp'
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+lsp.configure('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      checkOnSave = {
+        command = 'clippy'
+      }
+    }
+  }
+})
+
+local cmp = require 'cmp'
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select)
+  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select)
 })
 
 lsp.set_preferences({
@@ -29,7 +39,7 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { remap = false, silent=true, buffer=bufnr }
+  local bufopts = { remap = false, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -39,7 +49,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<leader>c[', vim.diagnostic.setqflist, bufopts)
-  vim.keymap.set('n', '<leader>ce', function() vim.diagnostic.open_float({scope="line"}) end, bufopts)
+  vim.keymap.set('n', '<leader>ce', function() vim.diagnostic.open_float({ scope = "line" }) end, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
 end)
