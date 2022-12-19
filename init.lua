@@ -4,7 +4,7 @@ local ensure_packer = function()
   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
+    vim.cmd [[ packadd packer.nvim ]]
     return true
   end
   return false
@@ -20,14 +20,11 @@ require('packer').startup(function(use)
   use "nvim-lua/plenary.nvim"
   use "nvim-telescope/telescope.nvim"
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-  use "neovim/nvim-lspconfig"
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
   use 'hrsh7th/vim-vsnip'
   use 'hrsh7th/cmp-vsnip'
   use "vim-scripts/CycleColor"
   use "EdenEast/nightfox.nvim"
-  use "nvim-treesitter/nvim-treesitter"
+  use("nvim-treesitter/nvim-treesitter", {run = ':TSUpdate'})
 
   use {
     "nvim-neo-tree/neo-tree.nvim",
@@ -44,6 +41,28 @@ require('packer').startup(function(use)
   use "mbbill/undotree"
   use "jose-elias-alvarez/null-ls.nvim"
   use "mattn/emmet-vim"
+
+  use {
+    'VonHeikemen/lsp-zero.nvim',
+    requires = {
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},
+      {'williamboman/mason.nvim'},
+      {'williamboman/mason-lspconfig.nvim'},
+
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-buffer'},
+      {'hrsh7th/cmp-path'},
+      {'saadparwaiz1/cmp_luasnip'},
+      {'hrsh7th/cmp-nvim-lsp'},
+      {'hrsh7th/cmp-nvim-lua'},
+
+      -- Snippets
+      {'L3MON4D3/LuaSnip'},
+      {'rafamadriz/friendly-snippets'},
+    }
+  }
 end)
 vim.cmd("colorscheme nordfox")
 
@@ -105,7 +124,9 @@ key('n', '<leader>fs', ':w<CR>')
 key('n', '<leader>ff', tele.git_files)
 key('n', '<leader><space>', tele.find_files)
 key('n', '<leader>fp', tele.git_files)
-key('n', '<leader>s', tele.live_grep)
+key('n', '<leader>ss', tele.live_grep)
+key('n', '<leader>si', tele.lsp_document_symbols)
+key('n', '<leader>sw', tele.lsp_workspace_symbols)
 key('n', '<leader>q', ':q<CR>')
 key('n', 'gu', tele.lsp_references)
 key('n', 'gs', tele.lsp_document_symbols)
@@ -128,55 +149,11 @@ key('n', '<leader>nt', ':Neotree toggle<CR>')
 -- Terminal
 key('t', '<Esc>', '<C-\\><C-n>')
 
--- Lsp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<leader>hk', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<leader>c[', vim.diagnostic.setqflist, bufopts)
-  vim.keymap.set('n', '<leader>ce', function() vim.diagnostic.open_float({scope="line"}) end, bufopts)
-  -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
-local lsp = require('lspconfig')
-lsp['rust_analyzer'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['elixirls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = {"language_server.sh"}
-}
-lsp['tsserver'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['gopls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-require('null-ls').setup({
-  sources = {
-    require('null-ls').builtins.diagnostics.credo
-  }
-})
+-- require('null-ls').setup({
+--   sources = {
+--     require('null-ls').builtins.diagnostics.credo
+--   }
+-- })
 
 -- Autocomplete
 local cmp = require'cmp'
@@ -201,23 +178,3 @@ cmp.setup({
     { name = 'buffer' }
   })
 })
-
--- Treesitter highlighting
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "heex", "eex",
-    "javascript", "svelte",
-    "c_sharp"},
-  sync_install = false,
-  ignore_install = { },
-  highlight = {
-    enable = true,
-    disable = { },
-  },
-}
-
--- Fugitive
-key('n', '<leader>gg', ':Git<CR>')
-key('n', '<leader>gc', ':Git<Space>')
-
--- Undotree
-key('n', '<leader>ut', ':UndotreeToggle<CR>')
