@@ -20,8 +20,6 @@ require('packer').startup(function(use)
   use "nvim-lua/plenary.nvim"
   use "nvim-telescope/telescope.nvim"
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-  use 'hrsh7th/vim-vsnip'
-  use 'hrsh7th/cmp-vsnip'
   use "vim-scripts/CycleColor"
   use "EdenEast/nightfox.nvim"
   use("nvim-treesitter/nvim-treesitter", {run = ':TSUpdate'})
@@ -39,7 +37,6 @@ require('packer').startup(function(use)
   use "tpope/vim-fugitive"
   use "tpope/vim-surround"
   use "mbbill/undotree"
-  use "jose-elias-alvarez/null-ls.nvim"
   use "mattn/emmet-vim"
 
   use {
@@ -64,10 +61,21 @@ require('packer').startup(function(use)
     }
   }
 end)
+
 vim.cmd("colorscheme nordfox")
+vim.opt.termguicolors = true
+
+-- Keep cursor as a block
+vim.opt.guicursor = ""
 
 -- Clipboard
 vim.opt.clipboard = unnamedplus
+
+-- History
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+vim.opt.undofile = true
 
 -- Line numbers
 vim.opt.number = true
@@ -149,32 +157,10 @@ key('n', '<leader>nt', ':Neotree toggle<CR>')
 -- Terminal
 key('t', '<Esc>', '<C-\\><C-n>')
 
--- require('null-ls').setup({
---   sources = {
---     require('null-ls').builtins.diagnostics.credo
---   }
--- })
 
--- Autocomplete
-local cmp = require'cmp'
+-- Primeagen move lines
+key('v', "J", ":m '>+1<CR>gv=gv")
+key('v', "K", ":m '<-2<CR>gv=gv")
 
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      -- setting up snippet engine
-      -- this is for vsnip, if you're using other
-      -- snippet engine, please refer to the `nvim-cmp` guide
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
-    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i','c'}),
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    { name = 'buffer' }
-  })
-})
+
+

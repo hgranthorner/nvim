@@ -1,31 +1,35 @@
--- local lsp = require('lsp-zero')
--- 
--- lsp.preset('recommended')
--- 
--- lsp.ensure_installed({
---   'rust_analyzer',
---   'elixirls',
---   'tsserver',
---   'sumneko_lua',
---   'eslint',
---   'gopls',
---   'clangd',
---   'pyright'
--- })
--- 
--- lsp.setup()
+local lsp = require('lsp-zero')
 
--- Lsp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+lsp.preset('recommended')
 
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+lsp.ensure_installed({
+  'rust_analyzer',
+  'elixirls',
+  'tsserver',
+  'sumneko_lua',
+  'eslint',
+  'gopls',
+  'clangd',
+  'pyright'
+})
 
+local cmp = require'cmp'
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select)
+})
+
+lsp.set_preferences({
+  sign_icons = {}
+})
+
+
+lsp.on_attach(function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { remap = false, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -36,46 +40,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<leader>c[', vim.diagnostic.setqflist, bufopts)
   vim.keymap.set('n', '<leader>ce', function() vim.diagnostic.open_float({scope="line"}) end, bufopts)
-  -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
+end)
 
-local lsp = require('lspconfig')
-lsp['rust_analyzer'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['elixirls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = {"language_server.sh"}
-}
-lsp['tsserver'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['gopls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['clangd'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['svelte'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['csharp_ls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['ruby_ls'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-lsp['pyright'].setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
+lsp.setup()
