@@ -60,5 +60,6 @@ nkey('<C-l>', function() harpoon:list():select(4) end)
 -- Lsp
 nkey('<leader>cf', vim.lsp.buf.format)
 nkey('<leader>ca', vim.lsp.buf.code_action)
-nkey('<leader>gd', vim.lsp.buf.implementation)
-nkey('<leader>gu', vim.lsp.buf.references)
+nkey('<leader>cr', vim.lsp.buf.rename)
+nkey('<leader>gd', vim.lsp.buf.definition)
+nkey('<leader>gr', vim.lsp.buf.references)

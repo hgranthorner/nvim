@@ -3,7 +3,8 @@ local lspconfig = require('lspconfig')
 
 local servers = {
   lua_ls = {},
-  rust_analyzer = {}
+  rust_analyzer = {},
+  zls = {}
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
