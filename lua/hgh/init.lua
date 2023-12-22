@@ -1,7 +1,0 @@
-require("hgh.settings")
-require("hgh.plugins")
-require("hgh.functions")
-require("hgh.keys")
-require("hgh.commands")
-require("hgh.plugins.nvim-cmp")
-require("hgh.plugins.lsp")

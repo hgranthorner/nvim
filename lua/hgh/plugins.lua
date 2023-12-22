@@ -12,16 +12,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  {
-    'nvim-lua/plenary.nvim'
-  },
+  'nvim-lua/plenary.nvim',
+  -- Sets up lua-ls for neovim
+  "folke/neodev.nvim",
+  'tpope/vim-commentary',
+  'tpope/vim-fugitive',
+  'neovim/nvim-lspconfig',
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' }
-  },
-  {
-    'neovim/nvim-lspconfig'
   },
   {
     'ThePrimeagen/harpoon',
@@ -31,10 +31,6 @@ require("lazy").setup({
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      {
-        'L3MON4D3/LuaSnip',
-        version = 'v2.*'
-      },
       'hrsh7th/cmp-nvim-lsp',
     }
   },
@@ -42,8 +38,4 @@ require("lazy").setup({
     'L3MON4D3/LuaSnip',
     version = 'v2.*'
   },
-  {
-    -- Sets up lua-ls for neovim
-    "folke/neodev.nvim"
-  }
 })
