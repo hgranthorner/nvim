@@ -16,8 +16,34 @@ require("lazy").setup({
     'nvim-lua/plenary.nvim'
   },
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-  { 'neovim/nvim-lspconfig' }
+  {
+    'neovim/nvim-lspconfig'
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*'
+      },
+      'hrsh7th/cmp-nvim-lsp',
+    }
+  },
+  {
+    'L3MON4D3/LuaSnip',
+    version = 'v2.*'
+  },
+  {
+    -- Sets up lua-ls for neovim
+    "folke/neodev.nvim"
+  }
 })

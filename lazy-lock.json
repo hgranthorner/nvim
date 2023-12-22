@@ -1,5 +1,10 @@
 {
+  "LuaSnip": { "branch": "master", "commit": "118263867197a111717b5f13d954cd1ab8124387" },
+  "cmp-nvim-lsp": { "branch": "main", "commit": "5af77f54de1b16c34b23cba810150689a3a90312" },
+  "harpoon": { "branch": "harpoon2", "commit": "31701337377991c66eebb57ebd23ef01eb587352" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
+  "neodev.nvim": { "branch": "main", "commit": "0afdcb703f265c3079a47857bda01e3ccf884558" },
+  "nvim-cmp": { "branch": "main", "commit": "538e37ba87284942c1d76ed38dd497e54e65b891" },
   "nvim-lspconfig": { "branch": "master", "commit": "9099871a7c7e1c16122e00d70208a2cd02078d80" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "telescope.nvim": { "branch": "master", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" }
