@@ -1,9 +1,9 @@
 vim.opt.termguicolors = true
 
--- Keep cursor as a block
-vim.opt.guicursor = ""
+vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 
 -- Clipboard
+---@diagnostic disable-next-line: undefined-global
 vim.opt.clipboard = unnamedplus
 
 -- History
@@ -23,6 +23,7 @@ vim.opt.softtabstop = 2
 vim.opt.expandtab   = true -- use spaces instead of tabs.
 vim.opt.shiftround  = true -- tab / shifting moves to closest tabstop.
 vim.opt.smartindent = true -- Intelligently dedent / indent new lines based on rules.
+vim.opt.cursorline  = true
 
 -- Make search more sane
 vim.opt.ignorecase = true -- case insensitive search
@@ -45,3 +46,4 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 vim.cmd [[colorscheme default]]
+vim.cmd [[au TextYankPost * silent! lua vim.highlight.on_yank()]]

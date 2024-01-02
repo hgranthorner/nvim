@@ -17,6 +17,9 @@ require("lazy").setup({
   "folke/neodev.nvim",
   'tpope/vim-commentary',
   'tpope/vim-fugitive',
+  'tpope/vim-surround',
+  'tpope/vim-unimpaired',
+  'tpope/vim-repeat',
   'neovim/nvim-lspconfig',
   {
     'nvim-telescope/telescope.nvim',
@@ -38,4 +41,9 @@ require("lazy").setup({
     'L3MON4D3/LuaSnip',
     version = 'v2.*'
   },
+  'saadparwaiz1/cmp_luasnip',
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" }
+  }
 })

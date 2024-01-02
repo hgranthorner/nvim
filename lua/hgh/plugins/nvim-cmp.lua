@@ -17,8 +17,11 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   }, {
     { name = 'buffer' },
   }),
 })
+
+require("luasnip.loaders.from_snipmate").lazy_load()
 
