@@ -38,6 +38,11 @@ end, { desc = 'Cd to the nearest git directory' })
 nkey('<leader>rw', ':Ex<CR>', { desc = 'Open Netrw' })
 
 -- Trouble
-nkey('<leader>tt', function() require('trouble').toggle() end, { desc = '[T]oggle [T]rouble' })
+nkey('<leader>tt', require('trouble').toggle, { desc = '[T]rouble [T]oggle' })
+nkey('<leader>tn', function() require('trouble').next({}) end, { desc = '[T]rouble [N]ext' })
+nkey('<leader>tp', function() require('trouble').previous({}) end, { desc = '[T]rouble [P]revious' })
+
+-- Terminal mode
+vim.keymap.set('t', "<Esc>", "<C-\\><C-n>")
 
 return M

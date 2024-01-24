@@ -45,5 +45,9 @@ require("lazy").setup({
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" }
-  }
+  },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine'
+  },
 })
