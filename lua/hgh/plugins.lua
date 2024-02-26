@@ -21,6 +21,7 @@ require("lazy").setup({
   'tpope/vim-unimpaired',
   'tpope/vim-repeat',
   'neovim/nvim-lspconfig',
+  'nvim-treesitter/nvim-treesitter',
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
@@ -48,6 +49,9 @@ require("lazy").setup({
   },
   {
     'rose-pine/neovim',
-    name = 'rose-pine'
+    name = 'rose-pine',
+    config = function (_)
+      vim.cmd [[colorscheme rose-pine]]
+    end
   },
 })
