@@ -6,6 +6,17 @@ return { -- LSP Configuration & Plugins
 		{ 'j-hui/fidget.nvim', opts = {} },
 	},
 	config = function()
+		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+			group = vim.api.nvim_create_augroup('hgh-lsp-codelens-refresh', { clear = true }),
+			callback = function(event)
+				local bufnr = event.buf
+				for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+					if client and client.server_capabilities.codeLensProvider then
+						vim.lsp.codelens.refresh()
+					end
+				end
+			end
+		})
 		vim.api.nvim_create_autocmd('LspAttach', {
 			group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 			callback = function(event)
@@ -48,6 +59,27 @@ return { -- LSP Configuration & Plugins
 						callback = vim.lsp.buf.clear_references,
 					})
 				end
+
+				if client and client.server_capabilities.codeLensProvider then
+					map('<leader>clr', function()
+							vim.lsp.codelens.refresh()
+						end,
+						'[C]ode [L]ens [R]efresh'
+					)
+					map('<leader>clR', function()
+							vim.lsp.codelens.run()
+						end,
+						'[C]ode [L]ens [R]un'
+					)
+					map('<leader>cld', function()
+							local lenses = vim.lsp.codelens.get(event.buf)
+							vim.lsp.codelens.display(lenses, event.buf, event.data.client_id)
+						end,
+						'[C]ode [L]ens [D]isplay'
+					)
+					map('<leader>clc', function() vim.lsp.codelens.clear(event.data.client_id, event.buf) end,
+						'[C]ode [L]ens [C]lear')
+				end
 			end,
 		})
 
@@ -68,7 +100,8 @@ return { -- LSP Configuration & Plugins
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			elixirls = { cmd = { "elixir-ls" } },
+			elixirls = { cmd = { vim.loop.os_homedir() .. "/.local/bin/language_server.sh" } },
+			-- lexical = { cmd = { vim.loop.os_homedir() .. "/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh" } },
 			tailwindcss = {
 				root_dir = require('lspconfig.util').root_pattern(
 					'tailwind.config.js',
@@ -84,9 +117,33 @@ return { -- LSP Configuration & Plugins
 					'.git',
 					'mix.exs'
 				),
+				init_options = {
+					userLanguages = {
+						elixir = "phoenix-heex",
+						eelixir = "phoenix-heex",
+						heex = "phoenix-heex",
+						["phoenix-heex"] = "phoenix-heex",
+					},
+				},
+				settings = {
+					tailwindCSS = {
+						experimental = {
+							classRegex = {
+								'class[:]\\s*"([^"]*)"',
+							},
+						},
+					},
+				},
 			},
+			cmake = {},
+			ols = {},
+			terraformls = {},
+			-- sourcekit = {},
+			-- rubocop = {},
+			ruby_lsp = {},
+			svelte = {},
 			-- clangd = {},
-			-- gopls = {},
+			gopls = {},
 			pyright = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -95,10 +152,30 @@ return { -- LSP Configuration & Plugins
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			tsserver = {},
+			ts_ls = {},
 			--
+			intelephense = {},
+			kotlin_language_server = {},
+			-- csharp_ls = {
+			-- 	filetypes = { "cs", "razor" },
+			-- },
+			html = {
+				filetypes = { "html", "heex" },
+				init_options = {
+					configurationSection = { "html", "css", "javascript" },
+					embeddedLanguages = {
+						css = true,
+						javascript = true
+					},
+				},
+			},
+
+			clangd = {},
 
 			gleam = {},
+			hls = {},
+			zls = {},
+			ocamllsp = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes { ...},
@@ -130,5 +207,21 @@ return { -- LSP Configuration & Plugins
 			setup_config.capabilities = capabilities
 			lspconfig[lsp].setup(setup_config)
 		end
+
+
+		local configs = require 'lspconfig.configs'
+		if not configs.roc_language_server then
+			configs.roc_language_server = {
+				default_config = {
+					cmd = { "roc_language_server" },
+					filetypes = { "roc" },
+					root_dir = require('lspconfig.util').root_pattern("main.roc")
+				},
+			}
+		end
+
+		lspconfig.roc_language_server.setup {
+			capabilities = capabilities
+		}
 	end,
 }
