@@ -9,13 +9,19 @@ return { -- Autoformat
 		formatters_by_ft = {
 			lua = { 'stylua' },
 			-- Conform can also run multiple formatters sequentially
-			python = { "isort", "black" },
+			python = { "ruff_format" },
 			--
 			-- You can use a sub-list to tell conform to run *until* a formatter
 			-- is found.
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "brettier", "prettierd", "prettier", stop_after_first = true },
+			typescript = { "brettier", "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "brettier", "prettierd", "prettier", stop_after_first = true },
 		},
+		formatters = {
+			brettier = {
+				command = "bun",
+				args = { "run", "prettier", "--stdin-filepath", "$FILENAME" }
+			},
+		}
 	},
 }

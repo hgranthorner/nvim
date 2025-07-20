@@ -7,6 +7,6 @@ return {
 		}
 	},
 	dependencies = {
-		'echasnovski/mini.icons'
+		{ 'echasnovski/mini.icons', version = 'false', opts = {} },
 	}
 }
