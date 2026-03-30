@@ -84,7 +84,7 @@ vim.keymap.set("n", "K", function()
 	vim.lsp.buf.hover({ border = "rounded" })
 end)
 
-vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "lua_ls", "dartls" })
 
 local github = "https://github.com/"
 vim.pack.add({
@@ -103,6 +103,9 @@ vim.pack.add({
 -- Telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fc", function()
+	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "Telescope find config" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
@@ -141,6 +144,7 @@ vim.keymap.set("n", "<leader>gg", "<CMD>Neogit<CR>")
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
+		dart = { "dart_format" },
 		-- Conform will run multiple formatters sequentially
 		python = { "ruff" },
 		-- You can customize some of the format options for the filetype (:help conform.format)
