@@ -97,6 +97,7 @@ vim.pack.add({
 	github .. "lewis6991/gitsigns.nvim",
 	github .. "neogitorg/neogit",
 	github .. "stevearc/conform.nvim",
+	{ src = github .. "saghen/blink.cmp", version = vim.version.range("v1.*") },
 })
 
 -- Telescope
@@ -153,3 +154,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		require("conform").format({ bufnr = args.buf })
 	end,
 })
+
+-- blink.cmp
+require("blink.cmp").setup()
