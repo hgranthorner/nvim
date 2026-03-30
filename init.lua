@@ -132,6 +132,7 @@ vim.keymap.set("n", "<leader>rw", "<CMD>Oil<CR>", { desc = "Open file explorer" 
 -- Mini
 require("mini.move").setup()
 require("mini.surround").setup()
+require("mini.snippets").setup()
 
 -- Neogit
 vim.keymap.set("n", "<leader>gg", "<CMD>Neogit<CR>")
