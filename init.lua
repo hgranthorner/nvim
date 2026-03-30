@@ -78,6 +78,7 @@ vim.diagnostic.config({
 })
 
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>so", "<CMD>so<CR>")
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "K", function()
@@ -98,6 +99,9 @@ vim.pack.add({
 	github .. "neogitorg/neogit",
 	github .. "stevearc/conform.nvim",
 	{ src = github .. "saghen/blink.cmp", version = vim.version.range("v1.*") },
+	github .. "tjdevries/colorbuddy.nvim",
+	github .. "hgranthorner/ghosttybuddy.nvim",
+	github .. "nvim-treesitter/nvim-treesitter",
 })
 
 -- Telescope
@@ -162,3 +166,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- blink.cmp
 require("blink.cmp").setup()
+
+-- ghosttybuddy
+vim.cmd.colorscheme("ghostty")
+
+-- nvim-treesitter
+local langs = { "rust", "javascript", "zig", "lua", "vim", "vimdoc" }
+require("nvim-treesitter").install(langs)
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = langs,
+	callback = function()
+		-- syntax highlighting, provided by Neovim
+		vim.treesitter.start()
+		-- folds, provided by Neovim
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		vim.wo.foldmethod = "expr"
+		-- indentation, provided by nvim-treesitter
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
